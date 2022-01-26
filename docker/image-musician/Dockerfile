@@ -1,6 +1,7 @@
 from node:17
-RUN npm i uuid
 
 WORKDIR /opt/app/
 COPY src .
+COPY package.json . 
+RUN npm install
 ENTRYPOINT ["node", "/opt/app/app.js"]
