@@ -24,11 +24,9 @@ udpSocket.on('message', function(msg, source)	{
 	
 	//m is not undefined it means, that .get found a result, we update that lastPing
 	if (m != undefined && now - m.lastPing <= timeout){
-    console.log("Update musician \n")
 		musicians.set(message.uuid,{instrument:m.instrument, firstPing:m.firstPing, lastPing:now});
 	}else{//we have no musician OR it timed out and wasn't cleaned
 		let instr = sound_instrument.get(message.sound);
-    console.log("Insered new musician \n")
 		musicians.set(message.uuid,{instrument:instr,firstPing:now,lastPing:now});
 	}
 
@@ -59,28 +57,3 @@ tcpSocket.on('connection', function(socket) {
 	socket.end();
 
 });
-
-// //const protocol = require('./sensor-protocol');
-
-// /*
-//  * We use a standard Node.js module to work with UDP
-//  */
-// const dgram = require('dgram');
-
-// /* 
-//  * Let's create a datagram socket. We will use it to listen for datagrams published in the
-//  * multicast group by thermometers and containing measures
-//  */
-// const s = dgram.createSocket('udp4');
-// s.bind(2233, function() {
-//   console.log("Joining multicast group");
-//   s.addMembership('239.255.22.5');
-// 	console.log("multicast joint");
-// });
-
-// /* 
-//  * This call back is invoked when a new datagram has arrived.
-//  */
-// s.on('message', function(msg, source) {
-// 	console.log("Data has arrived: " + msg + ". Source port: " + source.port);
-// });
